@@ -1,6 +1,4 @@
 export default function Map() {
-  const address = "1654 Columbia Rd, Washington, DC 20009";
-  const encodedAddress = encodeURIComponent(address);
 
   return (
     <div className="w-full rounded-xl overflow-hidden shadow-lg">

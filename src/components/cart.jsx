@@ -4,7 +4,7 @@ import { FaShoppingCart } from "react-icons/fa";
 import { IoClose } from "react-icons/io5";
 import { MdDelete } from "react-icons/md";
 import { db, auth } from "../firebase";
-import { doc, deleteDoc, updateDoc, collection, onSnapshot } from "firebase/firestore";
+import { doc, deleteDoc, collection, onSnapshot } from "firebase/firestore";
 import { onAuthStateChanged } from "firebase/auth";
 
 export default function Cart() {

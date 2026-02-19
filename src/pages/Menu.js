@@ -3,7 +3,6 @@ import black_bg from "../assets/black_bg.png";
 import menu_bg from "../assets/menu-bg.jpg";
 import { useState, useEffect  } from "react";
 import { useNavigate } from "react-router-dom";
-import { onAuthStateChanged } from "firebase/auth";
 import { FaShoppingCart } from "react-icons/fa";
 import { IoClose } from "react-icons/io5";
 import { TbTruckDelivery } from "react-icons/tb";
@@ -12,7 +11,7 @@ import Cart from '../components/cart';
 // import { db } from "../firebase";
 import FoodList from "../components/foodList";
 import { db, auth } from "../firebase";
-import { doc, setDoc, deleteDoc, updateDoc, collection, getDocs, increment } from "firebase/firestore";
+import { doc, setDoc, increment } from "firebase/firestore";
 // import { onSnapshot, collection } from "firebase/firestore";
 
 
