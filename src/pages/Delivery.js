@@ -1,12 +1,9 @@
-import Footer from "../components/footer";
 import Maps from "../components/map";
 import black_bg from "../assets/black_bg.png";
-import Cart from '../components/cart';
 
 function Home() {
   return (
     <main className="text-white p-3 min-h-screen md:flex md:flex-col lg:flex-row-reverse md:items-center" style={{ backgroundImage: `url(${black_bg})`, backgroundPosition: 'center', backgroundSize: 'cover'}}>
-      {/* <img src={map} className="md:w-full lg:w-[70vw]"/> */}
       <Maps></Maps>
       <section className=" md:text-xl lg:text-lg md:min-w-[80vw] lg:min-w-[30vw] lg:w-[20vw]">
         <div className="border-b-2 border-b-white mt-3 md:pt-5">

@@ -23,7 +23,7 @@ export default function Home() {
       <div className="max-w-lg">
         <Carousel autoSlide={true}>
           {slides.map((s)=>(
-            <img src={s} className="h-[50vh] md:h-full"/>
+            <img src={s} alt="" className="h-[50vh] md:h-full"/>
           ))}
           {/* style={{ width: '100vw', height: '100%'}} */}
         </Carousel>

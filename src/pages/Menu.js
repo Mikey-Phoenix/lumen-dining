@@ -136,7 +136,7 @@ function Home() {
         openFoods &&
         <section className="w-[100vw] h-[100vh] fixed top-0 left-0 bg-black/40 z-50">
           <div className="relative w-[85vw] lg:w-[50vw] h-[90vh] top-10 left-[50%] translate-x-[-50%] overflow-y-scroll bg-gray-100 text-black rounded-xl">
-              <img className="w-[100%] rounded-xl" src={selectedItem.imageURL} />
+              <img className="w-[100%] rounded-xl" src={selectedItem.imageURL} alt="" />
               <div className="px-3">
                   <div className="pt-3 pb-1 border-b-2 border-black">
                       <h2>{selectedItem.Name} - {selectedItem.Category}</h2>
@@ -188,34 +188,5 @@ function Home() {
   );
 }
 
-// function FoodCard({ item, index, onClick }) {
-//   return (
-//     <motion.div
-//       initial={{ opacity: 0, y: 100 }}
-//       whileInView={{ opacity: 1, y: 0 }}
-//       transition={{ duration: 0.3, ease: "easeInOut", delay: index * 0.05 }}
-//       viewport={{ once: true }}
-//       className="w-[41vw] md:mb-5 pb-2 rounded-xl md:flex bg-gray-100 text-black cursor-pointer transition-all ease-in-out hover:bg-white hover:scale-[1.01]"
-//       onClick={onClick}
-//     >
-//       <img
-//         className="w-max md:w-[40%] md:max-h-[150px] md:ml-1 md:mt-1 lg:ml-2 lg:mt-2 rounded-xl object-cover"
-//         src={item.imageURL}
-//         alt={item.Name}
-//         // fallback if image fails to load
-//         onError={e => { e.target.src = {food_item}; }}
-//       />
-//       <div className="md:flex-col md:items-center">
-//         <h4 className="m-2 text-2xl">{item.Name}</h4>
-//         <p className="hidden md:block m-2 font-semibold text-sm">
-//           {item.Description}
-//         </p>
-//         <p className="m-2 font-semibold text-sm">
-//           ₦{item.Price?.toLocaleString()}
-//         </p>
-//       </div>
-//     </motion.div>
-//   );
-// }
 
 export default Home;

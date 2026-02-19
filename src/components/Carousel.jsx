@@ -14,13 +14,16 @@ export default function Carousel({
     const next = () => 
         setCurr((curr) => (curr === slides.length - 1 ? 0 : curr + 1))
 
+    // useEffect (() => {
+    //     if (!autoSlide) return
+    //     const slideInterval  = setInterval(next, autoSlideInterval)
+    //     return ()=> clearInterval(slideInterval)
+    // }, [])
     useEffect(() => {
-        if (!autoSlide) return;
-        const slideInterval = setInterval(() => {
-            next();
-        }, autoSlideInterval);
-        return () => clearInterval(slideInterval);
-    }, [autoSlide, autoSlideInterval, next]);
+        const next = () => setIndex(i => (i + 1) % items.length);
+        const id = setInterval(next, 3000);
+        return () => clearInterval(id);
+    }, [items.length]);
     return (
         // overflow-hidden
         <div className="overflow-hidden w-[100vw] h-[50vh] md:h-[100vh] md:max-h-[600px] relative">
