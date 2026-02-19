@@ -1,0 +1,23 @@
+{
+  "files": {
+    "main.css": "/lumen-dining/static/css/main.76c550f3.css",
+    "main.js": "/lumen-dining/static/js/main.fb630af7.js",
+    "static/js/453.9cbb84a6.chunk.js": "/lumen-dining/static/js/453.9cbb84a6.chunk.js",
+    "static/media/carousel-img-two.jpg": "/lumen-dining/static/media/carousel-img-two.42cb3d53c171bdca485c.jpg",
+    "static/media/carousel-img-three.jpg": "/lumen-dining/static/media/carousel-img-three.78fec29c56e42a99fdf2.jpg",
+    "static/media/carousel-img-one.jpg": "/lumen-dining/static/media/carousel-img-one.bd28a84c41c3fcf6a7e1.jpg",
+    "static/media/burger.jpg": "/lumen-dining/static/media/burger.0d43d21f448b128e0feb.jpg",
+    "static/media/menu-bg.jpg": "/lumen-dining/static/media/menu-bg.c8c7b67978e401386824.jpg",
+    "static/media/food-item.jpg": "/lumen-dining/static/media/food-item.78cb57e27ba423834d92.jpg",
+    "static/media/drink.jpg": "/lumen-dining/static/media/drink.5e222848c176a075ddff.jpg",
+    "static/media/black_bg.png": "/lumen-dining/static/media/black_bg.fddea4ac8e917623be48.png",
+    "index.html": "/lumen-dining/index.html",
+    "main.76c550f3.css.map": "/lumen-dining/static/css/main.76c550f3.css.map",
+    "main.fb630af7.js.map": "/lumen-dining/static/js/main.fb630af7.js.map",
+    "453.9cbb84a6.chunk.js.map": "/lumen-dining/static/js/453.9cbb84a6.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.76c550f3.css",
+    "static/js/main.fb630af7.js"
+  ]
+}
