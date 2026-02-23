@@ -37,9 +37,9 @@ export default function Home() {
         viewport={{ once: true }}   // animates only the first time it enters view
         >
           <div className="w-fill h-[30vh] md:h-[40vh] md:max-h-[400px] lg:h-[60vh] mb-1 bg-cover bg-no-repeat rounded" style={{ backgroundImage: `url(${burger})`, backgroundPosition: 'center'}}></div>
-          <h1 className="text-2xl text-center md:!text-left md:text-5xl lg:text-6xl mb-2">SPECIALS</h1>
+          <h1 className="text-2xl text-center md:!text-left md:text-5xl lg:text-6xl mb-2">SNACKS</h1>
           <p className="md:w-[40vw] text-base text-center md:text-left text-[#595959]">Pitmaster Rob is always up to something! Check out our rotating specialty sandwiches and limited drops, including a Limited Time Only Monthly Chef's Special that will leave you craving for more!</p>
-          <Link to="/Menu" className="no-underline border border-white rounded-full bg-[#800020]  text-white text-lg w-full h-10 md:h-14 mb-5 md:mb-0 flex justify-center items-center cursor-pointer transition-all duration-300 ease-in-out hover:bg-[#9b0127]">Order Now</Link>
+          <Link to="/Menu#snacks" className="no-underline border border-white rounded-full bg-[#800020]  text-white text-lg w-full h-10 md:h-14 mb-5 md:mb-0 flex justify-center items-center cursor-pointer transition-all duration-300 ease-in-out hover:bg-[#9b0127]">Order Now</Link>
         </motion.div>
         <motion.div
         initial={{ opacity: 0, x: 200 }}
@@ -49,7 +49,7 @@ export default function Home() {
           <div className="md:w-[40vw] h-[30vh] md:h-[40vh] md:max-h-[400px] lg:h-[60vh] mb-1 bg-cover bg-no-repeat rounded" style={{ backgroundImage: `url(${drinks})`, backgroundPosition: 'center'}}></div>
           <h1 className="text-2xl text-center md:!text-left md:text-5xl lg:text-6xl mb-2">DRINKS</h1>
           <p className="md:w-[40vw] text-base text-center md:text-left text-[#595959]">Pitmaster Rob is always up to something! Check out our rotating specialty sandwiches and limited drops, including a Limited Time Only Monthly Chef's Special that will leave you craving for more!</p>
-          <Link to="/Menu" className="no-underline border border-white rounded-full bg-[#800020] text-white text-lg w-full h-10 md:h-14 mb-5 md:mb-0 flex justify-center items-center cursor-pointer transition-all duration-300 ease-in-out hover:bg-[#9b0127]">Order Now</Link>
+          <Link to="/Menu#drinks" className="no-underline border border-white rounded-full bg-[#800020] text-white text-lg w-full h-10 md:h-14 mb-5 md:mb-0 flex justify-center items-center cursor-pointer transition-all duration-300 ease-in-out hover:bg-[#9b0127]">Order Now</Link>
         </motion.div>
       </section>
 
@@ -69,7 +69,7 @@ export default function Home() {
           viewport={{ once: true }} className="md:flex flex-col justify-between">
             <h1 className="text-5xl lg:text-6xl hidden md:block">CATERING</h1>
             <p className="md:w-[40vw] my-3 text-base md:text-xl">Pitmaster Rob is always up to something! Check out our rotating specialty sandwiches and limited drops, including a Limited Time Only Monthly Chef's Special that will leave you craving for more!</p>
-            <Link to="/Menu" className="no-underline rounded-full bg-[#800020]  text-white text-lg w-full h-10 md:h-14 mb-5 md:mb-0 flex justify-center items-center cursor-pointer transition-all duration-300 ease-in-out hover:bg-[#9b0127]">Order Now</Link>
+            <Link to="/Contact" className="no-underline rounded-full bg-[#800020]  text-white text-lg w-full h-10 md:h-14 mb-5 md:mb-0 flex justify-center items-center cursor-pointer transition-all duration-300 ease-in-out hover:bg-[#9b0127]">Order Now</Link>
           </motion.div>
         </div>
         <div className="flex flex-col-reverse md:flex-row justify-between">

@@ -14,16 +14,16 @@ export default function Carousel({
     const next = () => 
         setCurr((curr) => (curr === slides.length - 1 ? 0 : curr + 1))
 
-    // useEffect (() => {
-    //     if (!autoSlide) return
-    //     const slideInterval  = setInterval(next, autoSlideInterval)
-    //     return ()=> clearInterval(slideInterval)
-    // }, [])
-    useEffect(() => {
-        const next = () => setIndex(i => (i + 1) % items.length);
-        const id = setInterval(next, 3000);
-        return () => clearInterval(id);
-    }, [items.length]);
+    useEffect (() => {
+        if (!autoSlide) return
+        const slideInterval  = setInterval(next, autoSlideInterval)
+        return ()=> clearInterval(slideInterval)
+    }, [])
+    // useEffect(() => {
+    //     const next = () => setIndex(i => (i + 1) % items.length);
+    //     const id = setInterval(next, 3000);
+    //     return () => clearInterval(id);
+    // }, [items.length]);
     return (
         // overflow-hidden
         <div className="overflow-hidden w-[100vw] h-[50vh] md:h-[100vh] md:max-h-[600px] relative">
@@ -34,7 +34,7 @@ export default function Carousel({
             </div>
 
             <div className="absolute top-0 left-0 h-[50vh] md:h-[100vh] md:max-h-[600px] w-[300vw] flex justify-between items-center" style={{ transform: `translateX(-${curr * 100}vw)` }}>
-                <div className="h-[50vh] md:h-[100vh] w-[100vw] flex justify-center items-center bg-black/40 transition ease-out duration-500">
+                <div className="h-[50vh] md:h-[100vh] w-[100vw] flex justify-center items-center bg-black/50 transition ease-out duration-500">
                     <div className="w-[90vw] md:w-[70vw] lg:w-[50vw] text-center text-white">
                         <h1 className="text-3xl md:text-6xl mb-4">Chef's Special</h1>
                         <p className="text-sm md:text-xl mb-4">Every month we feature a new fancy lumen dining chef special. Don’t miss out on October’s Special seasoned Jollof Rice.</p>

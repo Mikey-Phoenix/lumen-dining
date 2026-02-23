@@ -13,9 +13,11 @@ export default function AuthPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirm, setConfirm] = useState("");
+  const [address, setAddress] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
+  const [passwordView, setPasswordView] = useState(false);
 
   const isSignUp = mode === "signup";
 
@@ -40,12 +42,15 @@ export default function AuthPage() {
     if (isSignUp && password !== confirm) {
       setError("Passwords do not match.");
       return;
+    } if (isSignUp && password.length < 8) {
+      setError("Password must be at least 8 characters long.");
+      return;
     }
 
     setLoading(true);
     try {
       if (isSignUp) {
-        await registerUser(email, password, name);
+        await registerUser(email, password, name, address);
         setSuccess("Account created! Redirecting…");
         setTimeout(() => navigate("/"), 1200);
 
@@ -78,6 +83,10 @@ export default function AuthPage() {
     }
   };
 
+  const togglePasswordView = () => {
+    setPasswordView(!passwordView);
+  }
+
   return (
     <div
       className="min-h-screen w-full flex items-center justify-center px-4 py-12 relative overflow-hidden"
@@ -100,19 +109,6 @@ export default function AuthPage() {
           boxShadow: "0 8px 60px rgba(0,0,0,0.6)",
         }}
       >
-        {/* logo mark */}
-        <div className="flex justify-center mb-8">
-          <div
-            className="w-12 h-12 rounded-xl flex items-center justify-center"
-            style={{ background: "rgba(255,255,255,0.08)", border: "1px solid rgba(255,255,255,0.15)" }}
-          >
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
-              <path d="M12 2L2 7l10 5 10-5-10-5z" stroke="white" strokeWidth="1.5" strokeLinejoin="round"/>
-              <path d="M2 17l10 5 10-5" stroke="white" strokeWidth="1.5" strokeLinejoin="round"/>
-              <path d="M2 12l10 5 10-5" stroke="white" strokeWidth="1.5" strokeLinejoin="round"/>
-            </svg>
-          </div>
-        </div>
 
         {/* tab switcher */}
         <div
@@ -173,24 +169,29 @@ export default function AuthPage() {
             required
           />
 
-          <InputField
-            label="Password"
-            type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            placeholder="••••••••"
-            required
-          />
+            {isSignUp && (
+              <InputField label="Address" type="text" onChange={(e) => setAddress(e.target.value)} placeholder="Enter your address for delivery" required />
+            )}
+            
+
+
+          {passwordView ? (
+            <InputField label="Password" type="text" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Password" minlength="8" maxlength="15" required />
+          ) : (
+            <InputField label="Password" type="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="••••••••" minlength="8" maxlength="15" required />
+          )}
 
           {isSignUp && (
-            <InputField
-              label="Confirm Password"
-              type="password"
-              value={confirm}
-              onChange={(e) => setConfirm(e.target.value)}
-              placeholder="••••••••"
-              required
-            />
+            <div>
+              {passwordView ? (
+                <InputField label="Confirm Password" type="text" value={confirm} onChange={(e) => setConfirm(e.target.value)} placeholder="Confirm Password" minlength="8" maxlength="15" required />
+              ) : (
+                <InputField label="Confirm Password" type="password" value={confirm} onChange={(e) => setConfirm(e.target.value)} placeholder="••••••••" minlength="8" maxlength="15" required />
+              )}
+            </div>
+          )}
+          {isSignUp && (
+            <div className="text-xs text-red-400">Password must be at least 8 characters long</div>
           )}
 
           {error && (
@@ -209,6 +210,12 @@ export default function AuthPage() {
               {success}
             </p>
           )}
+
+          {/* checkbox for password view */}
+          <div className="flex items-center">
+            <input type="checkbox" id="passwordView" checked={passwordView} onChange={togglePasswordView} className="mr-2 cursor-pointer" />
+            <label htmlFor="passwordView" className="text-xs" style={{ color: "rgba(255,255,255,0.4)" }}>Show Password</label>
+          </div>
 
           <button
             type="submit"
@@ -251,12 +258,7 @@ function InputField({ label, type, value, onChange, placeholder, required }) {
         {label}
       </label>
       <input
-        type={type}
-        value={value}
-        onChange={onChange}
-        placeholder={placeholder}
-        required={required}
-        className="w-full rounded-xl px-4 py-3 text-sm text-white outline-none transition-all duration-200"
+        type={type} value={value} onChange={onChange} placeholder={placeholder} required={required} className="w-full rounded-xl px-4 py-3 text-sm text-white outline-none transition-all duration-200"
         style={{
           background: "rgba(255,255,255,0.05)",
           border: "1px solid rgba(255,255,255,0.10)",

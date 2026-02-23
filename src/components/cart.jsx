@@ -1,16 +1,45 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { useCheckout } from "../components/checkout";
 import { FaShoppingCart } from "react-icons/fa";
 import { IoClose } from "react-icons/io5";
+import { TbTruckDelivery } from "react-icons/tb";
 import { MdDelete } from "react-icons/md";
 import { db, auth } from "../firebase";
-import { doc, deleteDoc, collection, onSnapshot } from "firebase/firestore";
+import { doc, deleteDoc, updateDoc, deleteField, collection, onSnapshot } from "firebase/firestore";
 import { onAuthStateChanged } from "firebase/auth";
 
+const clearCart = async (uid) => {
+  if (!uid) {
+    throw new Error("User ID is required to clear cart");
+  }
+
+  try {
+    const cartRef = doc(db, "carts", uid); // or "users/{uid}/cart" if subcollection
+
+    // Option A: Set items to empty array (recommended)
+    await updateDoc(cartRef, {
+      items: [],
+      updatedAt: new Date(),           // optional: track when cart was cleared
+      itemCount: 0,                    // optional: denormalized count
+      total: 0                         // optional: if you keep a total
+    });
+
+    // Option B: If you want to completely remove the cart document (more nuclear)
+    // await deleteDoc(cartRef);
+
+    console.log("Cart cleared successfully for user:", uid);
+  } catch (error) {
+    console.error("Error clearing cart:", error);
+    throw error; // let the caller handle/display the error
+  }
+};
 export default function Cart() {
   const [cartItems, setCartItems] = useState([]);
   const [loading, setLoading] = useState(true);
   const [openCart, setOpenCart] = useState(false);
+  // const [checkedOut, setCheckedOut] = useState(false);
+  const { checkedOut, setCheckedOut } = useCheckout();
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -31,6 +60,7 @@ export default function Cart() {
         }
       );
     });
+    
 
     return () => {
       authUnsub();
@@ -38,6 +68,10 @@ export default function Cart() {
     };
   }, []);
 
+  // Reset checkout state if cart is closed or items change
+  useEffect(() => {
+    if (!openCart) setCheckedOut(false);
+  }, [openCart]);
 
   async function removeFromCart(itemId) {
     const user = auth.currentUser;
@@ -45,12 +79,26 @@ export default function Cart() {
     await deleteDoc(doc(db, "users", user.uid, "cart", itemId));
   }
 
+  async function handleCheckout() {
+    const user = auth.currentUser;
+    if (!user) return;
+
+    // Delete every item doc in the cart subcollection
+    const deletePromises = cartItems.map(item =>
+      deleteDoc(doc(db, "users", user.uid, "cart", item.id))
+    );
+    await Promise.all(deletePromises);
+
+    setCheckedOut(true);
+    navigate("/Delivery");
+  }
+
   return (
     <main>
       {/* Floating cart button */}
       <div className="fixed bottom-16 right-7 z-40">
         <div
-          className="relative w-12 h-12 rounded-full bg-[#800020] border border-white flex justify-center items-center cursor-pointer"
+          className="relative w-12 h-12 rounded-full bg-[#800020] border border-white flex justify-center items-center cursor-pointer transition-all ease-in-out duration-300 hover:bg-[#9b0127]"
           onClick={() => setOpenCart(true)}
         >
           <FaShoppingCart className="text-2xl text-white" />
@@ -91,10 +139,19 @@ export default function Cart() {
                           className="rounded-md shadow-md md:h-[15rem] md:w-[15rem] bg-white object-cover"
                           onError={e => { e.target.src = "/placeholder-food.png"; }}
                         />
-                        <MdDelete
-                          className="absolute top-0 right-0 rounded-full text-white text-2xl bg-[#800020] p-1 cursor-pointer"
-                          onClick={() => removeFromCart(item.id)}
-                        />
+
+                        {/* Icon toggles between delete and delivery based on checkout state */}
+                        {checkedOut ? (
+                          <TbTruckDelivery
+                            className="absolute top-0 right-0 rounded-full text-white text-2xl p-1"
+                            style={{ background: "#6B8E23" }}
+                          />
+                        ) : (
+                          <MdDelete
+                            className="absolute top-0 right-0 rounded-full text-white text-2xl bg-[#800020] p-1 cursor-pointer"
+                            onClick={() => removeFromCart(item.id)}
+                          />
+                        )}
                       </div>
 
                       <div className="mt-2">
@@ -104,7 +161,6 @@ export default function Cart() {
                           <p className="text-xs text-gray-400 italic">"{item.instructions}"</p>
                         )}
                         <p className="text-sm text-gray-500">₦{Number(item.price)?.toLocaleString()}</p>
-
                       </div>
                     </div>
                   ))}
@@ -114,7 +170,11 @@ export default function Cart() {
                   <p className="font-semibold text-right text-lg">
                     Total: ₦{cartItems.reduce((sum, item) => sum + (Number(item.price) * item.quantity), 0).toLocaleString()}
                   </p>
-                  <button className="w-full mt-3 py-3 bg-[#6B8E23] text-white rounded-full font-semibold" onClick={()=>{navigate("/Delivery")}}>
+                  <button
+                    className="w-full mt-3 py-3 text-white rounded-full font-semibold transition-colors duration-300"
+                    style={{ background: "#6B8E23" }}
+                    onClick={handleCheckout}
+                  >
                     Checkout
                   </button>
                 </div>
